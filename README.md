@@ -31,7 +31,31 @@ conda create -n rag-app1 python=3.13.1
 conda activate rag-app1
 ```
 
-## Optional prompet steps
+#### Install required packages
+To install the required packages, run the following command:
+
+```bash
+pip install -r requirements.txt
+```
+
+Make sure you have a `requirements.txt` file in your project directory with the necessary dependencies listed.
+
+#### Setup environment variables
+To set up environment variables, you can create a `.env` file in the root directory of your project. Use the `.env.example` file as a template. Copy the `.env.example` file to `.env` and update the values as needed.
+
+```bash
+cp .env.example .env
+```
+
+Edit the `.env` file to configure your environment variables. For example:
+
+```
+API_KEY="your_api_key_here"
+```
+
+Make sure to keep the `.env` file secure and do not commit it to version control.
+
+## Optional steps
 
 ## Setup your command line for better readability
 
