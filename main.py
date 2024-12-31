@@ -1,16 +1,14 @@
-# Import the FastAPI class from the fastapi module
 from fastapi import FastAPI
 
+# Load environment variables from the .env file
+from dotenv import load_dotenv  
+load_dotenv(".env")             
+
+# imort base router from routes folder
+from routes import base        
+
 # Create an instance of the FastAPI class
-app = FastAPI()
+app = FastAPI() 
 
-# Define a route for the HTTP GET method at the path "/welcome"
-@app.get("/welcome")
-def welcome():
-    # Return a JSON response with a welcome message
-    return {
-        "message": "Welcome to the FastAPI app"
-    }
-
-# To run the app, use the following command:
-# uvicorn main:app --reload --host 0.0.0.0 --port 5000
+# to include the base router in the app
+app.include_router(base.base_router)  
