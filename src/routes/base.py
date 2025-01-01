@@ -1,5 +1,6 @@
-from fastapi import APIRouter
-import os  # Import the os module to access environment variables
+from fastapi import APIRouter, Depends
+import os  
+from helpers.config import get_settings, Settings
 
 # Create an instance of the APIRouter class
 base_router = APIRouter(
@@ -10,11 +11,13 @@ base_router = APIRouter(
 
 # Define a route for the HTTP GET method at the path "/welcome"
 @base_router.get("/") # The path is relative to the prefix "/api/v1" defined above
-async def welcome(): # the use of async is optional, but recommended for better performance
-    app_name = os.getenv("APP_NAME", "") # Get the APP_NAME environment variable or use the default value
-    app_version = os.getenv("APP_VERSION", "") # Get the APP_VERSION environment variable or use the default value
-    app_description = os.getenv("APP_DESCRIPTION", "") # Get the APP_DESCRIPTION environment variable or use the default value
-    app_author = os.getenv("APP_AUTHOR", "") # Get the APP_AUTHOR environment variable or use the default value
+
+async def welcome(app_settings: Settings = Depends(get_settings)): # the use of async is optional, but recommended for better performance
+        
+    app_name = app_settings.APP_NAME # Get the APP_NAME value from the settings
+    app_version =  app_settings.APP_VERSION
+    app_description = app_settings.APP_DESCRIPTION
+    app_author = app_settings.APP_AUTHOR
     
     # Return a customized JSON response
     return {
