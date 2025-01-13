@@ -1,3 +1,7 @@
+# ----------------------------------------------------------------------------------------------------------------
+# In requirements.txt, we list the Python packages and their versions that are required to run the application.
+# Run `pip install -r requirements.txt` command to install the required packages.
+# ----------------------------------------------------------------------------------------------------------------
 fastapi==0.115.6
 uvicorn==0.34.0
 python-multipart==0.0.20

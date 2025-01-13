@@ -3,7 +3,7 @@ from .ProjectController import ProjectController
 import os
 from langchain_community.document_loaders import TextLoader
 from langchain_community.document_loaders import PyMuPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter # used to split the text into chunks
 from models import ProcessingEnum
 
 class ProcessController(BaseController):
@@ -16,9 +16,12 @@ class ProcessController(BaseController):
         
         self.project_path = ProjectController().get_project_path(project_id=project_id)
         
+        
     def get_file_extension(self, file_id: str):
         
         return os.path.splitext(file_id)[-1] # get the file extension, -1 means the last element in the list
+    
+    
     
     def get_file_loader(self, file_id: str):
         
@@ -31,17 +34,18 @@ class ProcessController(BaseController):
         if file_extension == ProcessingEnum.TXT.value:
             return TextLoader(file_path=file_path, encoding="utf-8")
         
-        elif file_extension == ProcessingEnum.PDF.value:
+        if file_extension == ProcessingEnum.PDF.value:
             return PyMuPDFLoader(file_path=file_path, encoding="utf-8")
         
-        else:
-            return None
+        return None
+        
         
     def get_file_content(self, file_id: str):
 
         loader = self.get_file_loader(file_id=file_id)
         
-        return loader.load()
+        return loader.load() # get the file content as a list of content and metadata
+
 
     def process_file_content(self, file_content: list, file_id: str,
                             chunk_size: int=100, overlap_size: int=20):
@@ -49,11 +53,11 @@ class ProcessController(BaseController):
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=overlap_size,
-            length_function=len,
+            length_function=len, # how to calculate the length of the text
         )
 
         file_content_texts = [
-            rec.page_content
+            rec.page_content  # rec = record
             for rec in file_content
         ]
 
