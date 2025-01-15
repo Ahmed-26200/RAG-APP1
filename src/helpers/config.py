@@ -8,10 +8,6 @@ class Settings(BaseSettings):
     APP_VERSION: str
     APP_DESCRIPTION: str
     APP_AUTHOR: str
-    
-    # LLM Settings
-    LLM_API_KEY: str
-    OPENAI_API_KEY: str
 
     # File settings
     FILE_ALLOWED_TYPES: list
@@ -21,6 +17,22 @@ class Settings(BaseSettings):
     # DB Settings
     MONGODB_URI: str
     MONGO_DATABASE: str
+    
+    # LLM Settings
+    GENERATION_BACKEND: str 
+    EMBEDDING_BACKEND: str
+    
+    OPENAI_API_KEY: str = None
+    OPENAI_API_URL: str = None
+    COHERE_API_KEY: str = None
+    
+    GENERATION_MODEL_ID: str = None
+    EMBEDDING_MODEL_ID: str = None
+    EMBEDDING_MODEL_SIZE: str = None
+    
+    INPUT_DEFAULT_MAX_CHRACTERS: str = None
+    GENERATION_DEFAULT_MAX_TOKENS: str = None
+    GENERATION_DEFAULT_TEMPERATURE: str = None
     
     class Config(SettingsConfigDict): # Config class inherit from SettingsConfigDict, it's a nested class 
        env_file = ".env" # This tells Pydantic to look for a file named `.env`
